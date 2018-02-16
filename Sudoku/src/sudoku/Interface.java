@@ -24,6 +24,7 @@ public class Interface extends Application {
 
 		bottomBox.setPadding(new Insets(10, 10, 10, 10));
 		bottomBox.setSpacing(10);
+		bottomBox.setSpacing(10);
 		bottomBox.setStyle("-fx-background-color: #336699;");
 		bottomBox.getChildren().addAll(b1, b2);
 		root.setBottom(bottomBox);
