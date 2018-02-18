@@ -7,7 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-// Isabellas kommentar hej
+// Isabellas kommentar hej hej
 
 public class Interface extends Application {
 
