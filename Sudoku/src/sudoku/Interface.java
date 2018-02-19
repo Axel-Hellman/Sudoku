@@ -7,7 +7,6 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-// Isabellas kommentar hej hej
 
 public class Interface extends Application {
 
@@ -19,17 +18,20 @@ public class Interface extends Application {
 		primaryStage.setScene(scene);
 
 		HBox bottomBox = new HBox();
-		Button b1 = new Button("Solve");
-		Button b2 = new Button("Clear");
+		HBox topBox = new HBox();
+		Button solveButton = new Button("Solve");
+		Button clearButton = new Button("Clear");
 
+		topBox.setPrefHeight(455);
+		topBox.setStyle("-fx-background-color: #0D0D0D;");
+		root.setTop(topBox);
+		
 		bottomBox.setPadding(new Insets(10, 10, 10, 10));
 		bottomBox.setSpacing(10);
 		bottomBox.setSpacing(10);
-		bottomBox.setStyle("-fx-background-color: #336699;");
-		bottomBox.getChildren().addAll(b1, b2);
+		bottomBox.getChildren().addAll(solveButton, clearButton);
 		root.setBottom(bottomBox);
 		
-
 		primaryStage.show();
 	}
 
