@@ -13,15 +13,16 @@ public class SudokuSolver {
 	public boolean tryPut(int posX, int posY, int a) {
 		for(int i = 0; i < 9; i++){
 			//Ska testa horisontell, vertikal ral, samt grupp (se metod nedan)
-			//if(matris[posX][i] == a || matris[i][posY] == a || group(int posX, int posY, int a)){
+			if(matris[posX][i] == a || matris[i][posY] == a || group(posX, posY, a)){
 				return false;
-			//}
+			}
 		}
+		put(posX, posY, a);
 		return true;
 	}
 	
 	// Stoppa in ett värde på en specifik plats
-	public void put(int Nbr, int posX, int posY) {
+	public void put(int posX, int posY, int Nbr) {
 		matris[posX][posY] = Nbr;
 	}
 	
@@ -38,13 +39,14 @@ public class SudokuSolver {
 			for (int j = 0; j < 9; i++){
 				if(i == 9){
 					return true;
-					//Då är den färdig, förstår inte varför inte detta funkar
 				}
-				/*else if( matris[j][i] != null ){ //Varför kan man inte ha null där?
+				else if( matris[i][j] == 0 ){ //OBS!! Vet ej om det skall vara == 0 eller == null
 					//Metod för att hitta värde att sätta in, tryPut
-					 * tryPut(j, i, matris[i][j])
+					 
+					
+					tryPut(i, j, matris[i][j]);
 		        
-				} */ else if ( matris[i][j] > 0 && matris[i][j]< 10){
+				} else if ( matris[i][j] > 0 && matris[i][j]< 10){
 					//Metod för att kolla så att allt är okej, annars returna false och gå tillbaka
 				}
 				else {
