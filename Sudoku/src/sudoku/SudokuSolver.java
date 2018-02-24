@@ -1,5 +1,13 @@
 package sudoku;
 
+/**
+ * SudokuSolver implementerar en mängd funktioner för att rekrusivt försöka lösa
+ * ett sudokuproblem.
+ *
+ * @author Axel Hellman, Isabella Steen
+ * @version 1.0
+ * @since 2018-02-20
+ */
 public class SudokuSolver {
 
 	public int[][] matris;
@@ -9,7 +17,16 @@ public class SudokuSolver {
 		matris = new int[9][9];
 	}
 
-	// Testar om det funkar att sätta in ett värde
+	/**
+	 * Testar om det funkar att sätta in ett värde och lägger isåfall in detta i
+	 * en matris.
+	 * 
+	 * @param posX
+	 *            positionen i x-led
+	 * @param posY
+	 *            positionen i y-led
+	 * @return Ifall det går att lägga in ett värde
+	 */
 	public boolean tryPut(int posX, int posY) {
 		for (int i = 0; i < 9; i++) {
 			for (int j = 1; i < 10; i++) {
@@ -21,7 +38,7 @@ public class SudokuSolver {
 					put(posX, posY, j);
 					return true;
 				}
-				
+
 			}
 		}
 		return false;
@@ -73,8 +90,6 @@ public class SudokuSolver {
 		}
 		return true; // tillfällig return statement
 	}
-
-	
 
 	// Delmetod som kollar ifall siffran finns i samma "grupp" i sudoku
 	public boolean group(int posX, int posY, int a) {
