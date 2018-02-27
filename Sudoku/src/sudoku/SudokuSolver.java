@@ -17,44 +17,6 @@ public class SudokuSolver {
 		matris = new int[9][9];
 	}
 
-	/**
-	 * Testar om det funkar att sätta in ett värde och lägger isåfall in detta i
-	 * en matris.
-	 * 
-	 * @param posX
-	 *            positionen i x-led
-	 * @param posY
-	 *            positionen i y-led
-	 * @return Ifall det går att lägga in ett värde
-	 */
-	public boolean tryPut(int posX, int posY) {
-		for (int i = 0; i < 9; i++) {
-			for (int j = 1; i < 10; i++) {
-				// Ska testa horisontell, vertikal ral, samt grupp (se metod
-				// nedan)
-				if (matris[posX][i] == j || matris[i][posY] == j || group(posX, posY, j)) {
-					return false;
-				} else {
-					put(posX, posY, j);
-					return true;
-				}
-
-			}
-		}
-		return false;
-	}
-
-	// Stoppa in ett värde på en specifik plats
-	public void put(int posX, int posY, int Nbr) {
-		matris[posX][posY] = Nbr;
-	}
-
-	// får värdet på en specifik plats. (Används till att kolla numrena runt
-	// omkring)
-	public int getNbr(int posX, int posY) {
-		return matris[posX][posY];
-	}
-
 	// löser sudokut.
 	public boolean solver() {
 
@@ -91,6 +53,74 @@ public class SudokuSolver {
 		return true; // tillfällig return statement
 	}
 
+	/**
+	 * Testar om det fungerar att sätta in ett värde (1-9) och lägger isåfall in
+	 * detta i en matris.
+	 * 
+	 * @param posX
+	 *            , positionen i x-led
+	 * @param posY
+	 *            , positionen i y-led
+	 * @return , Ifall det går att lägga in ett värde
+	 */
+	public boolean tryPut(int posX, int posY) {
+		for (int i = 0; i < 9; i++) {
+			for (int j = 1; i < 10; i++) {
+				// Ska testa horisontell, vertikal ral, samt grupp (se metod
+				// nedan)
+				if (matris[posX][i] == j || matris[i][posY] == j || group(posX, posY, j)) {
+					return false;
+				} else {
+					put(posX, posY, j);
+					return true;
+				}
+
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Stoppar in ett värde (nbr) på en specifik plats i matrisen.
+	 * 
+	 * @param posX
+	 *            , plats i x-led
+	 * @param posY
+	 *            , plats i y-led
+	 * @param nbr
+	 *            , värdet
+	 */
+
+	public void put(int posX, int posY, int nbr) {
+		matris[posX][posY] = nbr;
+	}
+
+	/**
+	 * Returnerar värdet vid en pecifik position i matrisen.
+	 * 
+	 * @param posX
+	 *            , plats i x-led
+	 * @param posY
+	 *            , plats i y-led
+	 * @return , värdet
+	 */
+
+	public int getNbr(int posX, int posY) {
+		return matris[posX][posY];
+	}
+
+	/**
+	 * Delmetod som kollar ifall en siffra "a" finns i samma 3x3 grupp i
+	 * sudokut.
+	 * 
+	 * @param posX
+	 *            , plats i x-led
+	 * @param posY
+	 *            , plats i y-led
+	 * @param a
+	 *            , värde att jämföra med
+	 * @return , om vrdet finns i gruppen eller inte
+	 */
 	// Delmetod som kollar ifall siffran finns i samma "grupp" i sudoku
 	public boolean group(int posX, int posY, int a) {
 		int newPosX = (posX / 3) * 3;
@@ -105,8 +135,4 @@ public class SudokuSolver {
 		return false;
 	}
 
-	// kollar listan, ser om det finns en nästkommande ruta.
-	public boolean hasNext() {
-		return false;
-	}
 }
