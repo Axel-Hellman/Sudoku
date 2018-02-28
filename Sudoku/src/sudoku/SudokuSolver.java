@@ -17,28 +17,38 @@ public class SudokuSolver {
 		matris = new int[9][9];
 	}
 
-	// löser sudokut.
+	/**
+	 * Går rekrusivt igenom hela brädet och försöker lösa sudokut en "ruta" i
+	 * taget. Går fram då det fungerar och backtrackar då det ej fungerar
+	 * (enligt reglerna av sudoku). Avslutar när det inte går att sätta in ett
+	 * nytt tal.
+	 * 
+	 * @return , om brädet har blivigt löst eller ej.
+	 */
+
 	public boolean solver() {
 
-		// Nästlad loop för att gå igenom hela matrisen
-		for (int i = 0; i < 10; i++) {
-			for (int j = 0; j < 9; i++) {
-				if (i == 9) {
-					return true;
-				} else if (matris[i][j] == 0) { // OBS!! Vet ej om det skall
-												// vara == 0 eller == null
-					// Metod för att hitta värde att sätta in, tryPut
-					tryPut(i, j);
-
-				} else if (matris[i][j] > 0 && matris[i][j] < 10) {
-					// Metod för att kolla så att allt är okej, annars returna
-					// false och gå tillbaka
-				} else {
-					return false; // Något kul exception :)
-				}
-			}
-		}
-		return false;
+		return solver();
+		
+//		// Nästlad loop för att gå igenom hela matrisen
+//		for (int i = 0; i < 10; i++) {
+//			for (int j = 0; j < 9; i++) {
+//				if (i == 9) {
+//					return true;
+//				} else if (matris[i][j] == 0) { // OBS!! Vet ej om det skall
+//												// vara == 0 eller == null
+//					// Metod för att hitta värde att sätta in, tryPut
+//					tryRules(i, j);
+//
+//				} else if (matris[i][j] > 0 && matris[i][j] < 10) {
+//					// Metod för att kolla så att allt är okej, annars returna
+//					// false och gå tillbaka
+//				} else {
+//					return false; // Något kul exception :)
+//				}
+//			}
+//		}
+		
 	}
 
 	private boolean solver(int posX, int posY) {
@@ -47,8 +57,16 @@ public class SudokuSolver {
 		} else if (posX == 9) {
 			posX = 0;
 			return solver(posX, posY + 1);
-		} else if (tryPut(posX, posY)) {
-			return solver(posX + 1, posY);
+		} else  {
+			for (int i = 1; i <= 10; i++) {
+				if (tryRules(posX, posY, i)) {
+					put(posX, posY, i);
+					return solver(posX + 1, posY);
+				}
+				if(i == 10){
+					// remove(posX, posY);
+				}
+			}
 		}
 		return true; // tillfällig return statement
 	}
@@ -63,18 +81,14 @@ public class SudokuSolver {
 	 *            , positionen i y-led
 	 * @return , Ifall det går att lägga in ett värde
 	 */
-	public boolean tryPut(int posX, int posY) {
+	public boolean tryRules(int posX, int posY, int nbr) {
 		for (int i = 0; i < 9; i++) {
-			for (int j = 1; i < 10; i++) {
-				// Ska testa horisontell, vertikal ral, samt grupp (se metod
-				// nedan)
-				if (matris[posX][i] == j || matris[i][posY] == j || group(posX, posY, j)) {
-					return false;
-				} else {
-					put(posX, posY, j);
-					return true;
-				}
-
+			// Ska testa horisontell, vertikal ral, samt grupp (se metod
+			// nedan)
+			if (matris[posX][i] == nbr || matris[i][posY] == nbr || group(posX, posY, nbr)) {
+				return false;
+			} else {
+				return true;
 			}
 		}
 		return false;
@@ -95,6 +109,10 @@ public class SudokuSolver {
 		matris[posX][posY] = nbr;
 	}
 
+	public void remove() {
+
+	}
+
 	/**
 	 * Returnerar värdet vid en pecifik position i matrisen.
 	 * 
@@ -104,7 +122,6 @@ public class SudokuSolver {
 	 *            , plats i y-led
 	 * @return , värdet
 	 */
-
 	public int getNbr(int posX, int posY) {
 		return matris[posX][posY];
 	}
@@ -121,7 +138,6 @@ public class SudokuSolver {
 	 *            , värde att jämföra med
 	 * @return , om vrdet finns i gruppen eller inte
 	 */
-	// Delmetod som kollar ifall siffran finns i samma "grupp" i sudoku
 	public boolean group(int posX, int posY, int a) {
 		int newPosX = (posX / 3) * 3;
 		int newPosY = (posY / 3) * 3;
