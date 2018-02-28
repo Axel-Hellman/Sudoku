@@ -9,6 +9,13 @@ package sudoku;
  * @since 2018-02-20
  */
 public class SudokuSolver {
+	
+	public static void main(String[] args) {
+		SudokuSolver tester = new SudokuSolver();
+		tester.put(3, 0, 2);
+		tester.solver();
+		
+	}
 
 	public int[][] matris;
 
@@ -28,27 +35,27 @@ public class SudokuSolver {
 
 	public boolean solver() {
 
-		return solver();
-		
-//		// Nästlad loop för att gå igenom hela matrisen
-//		for (int i = 0; i < 10; i++) {
-//			for (int j = 0; j < 9; i++) {
-//				if (i == 9) {
-//					return true;
-//				} else if (matris[i][j] == 0) { // OBS!! Vet ej om det skall
-//												// vara == 0 eller == null
-//					// Metod för att hitta värde att sätta in, tryPut
-//					tryRules(i, j);
-//
-//				} else if (matris[i][j] > 0 && matris[i][j] < 10) {
-//					// Metod för att kolla så att allt är okej, annars returna
-//					// false och gå tillbaka
-//				} else {
-//					return false; // Något kul exception :)
-//				}
-//			}
-//		}
-		
+		return solver(0, 0);
+
+		// // Nästlad loop för att gå igenom hela matrisen
+		// for (int i = 0; i < 10; i++) {
+		// for (int j = 0; j < 9; i++) {
+		// if (i == 9) {
+		// return true;
+		// } else if (matris[i][j] == 0) { // OBS!! Vet ej om det skall
+		// // vara == 0 eller == null
+		// // Metod för att hitta värde att sätta in, tryPut
+		// tryRules(i, j);
+		//
+		// } else if (matris[i][j] > 0 && matris[i][j] < 10) {
+		// // Metod för att kolla så att allt är okej, annars returna
+		// // false och gå tillbaka
+		// } else {
+		// return false; // Något kul exception :)
+		// }
+		// }
+		// }
+
 	}
 
 	private boolean solver(int posX, int posY) {
@@ -57,18 +64,21 @@ public class SudokuSolver {
 		} else if (posX == 9) {
 			posX = 0;
 			return solver(posX, posY + 1);
-		} else  {
+		} else if (matris[posX][posY] == 0) {
 			for (int i = 1; i <= 10; i++) {
-				if (tryRules(posX, posY, i)) {
+				if (i == 10) {
+					remove(posX, posY);
+				} else if (tryRules(posX, posY, i)) {
 					put(posX, posY, i);
+					System.out.print(matris[posX][posY]);
 					return solver(posX + 1, posY);
 				}
-				if(i == 10){
-					// remove(posX, posY);
-				}
 			}
+		} else {
+			System.out.print(matris[posX][posY]);
+			return solver(posX + 1, posY);
 		}
-		return true; // tillfällig return statement
+		return false; // tillfällig return statement
 	}
 
 	/**
@@ -83,8 +93,6 @@ public class SudokuSolver {
 	 */
 	public boolean tryRules(int posX, int posY, int nbr) {
 		for (int i = 0; i < 9; i++) {
-			// Ska testa horisontell, vertikal ral, samt grupp (se metod
-			// nedan)
 			if (matris[posX][i] == nbr || matris[i][posY] == nbr || group(posX, posY, nbr)) {
 				return false;
 			} else {
@@ -109,8 +117,8 @@ public class SudokuSolver {
 		matris[posX][posY] = nbr;
 	}
 
-	public void remove() {
-
+	public void remove(int posX, int posY) {
+		matris[posX][posY] = 0;
 	}
 
 	/**
