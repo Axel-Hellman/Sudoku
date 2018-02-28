@@ -12,7 +12,6 @@ public class SudokuSolver {
 	
 	public static void main(String[] args) {
 		SudokuSolver tester = new SudokuSolver();
-		tester.put(3, 0, 2);
 		tester.solver();
 		
 	}
@@ -59,6 +58,7 @@ public class SudokuSolver {
 	}
 
 	private boolean solver(int posX, int posY) {
+		//printmatrix
 		if (posY > 8) {
 			return true;
 		} else if (posX == 9) {
@@ -68,10 +68,13 @@ public class SudokuSolver {
 			for (int i = 1; i <= 10; i++) {
 				if (i == 10) {
 					remove(posX, posY);
+					return false;
 				} else if (tryRules(posX, posY, i)) {
 					put(posX, posY, i);
 					System.out.print(matris[posX][posY]);
-					return solver(posX + 1, posY);
+					if (solver(posX + 1, posY)){
+						return true;
+					}
 				}
 			}
 		} else {
@@ -95,11 +98,9 @@ public class SudokuSolver {
 		for (int i = 0; i < 9; i++) {
 			if (matris[posX][i] == nbr || matris[i][posY] == nbr || group(posX, posY, nbr)) {
 				return false;
-			} else {
-				return true;
-			}
+			} 
 		}
-		return false;
+		return true;
 	}
 
 	/**
