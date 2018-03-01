@@ -9,16 +9,17 @@ package sudoku;
  * @since 2018-02-20
  */
 public class SudokuSolver {
-	
+
 	public static void main(String[] args) {
 		SudokuSolver tester = new SudokuSolver();
 		tester.solver();
-		
 	}
 
 	public int[][] matris;
 
-	// Konstruktor
+	/**
+	 * Konstruktor, skapar en ny (tom) 9x9 matris
+	 */
 	public SudokuSolver() {
 		matris = new int[9][9];
 	}
@@ -31,34 +32,29 @@ public class SudokuSolver {
 	 * 
 	 * @return , om brädet har blivigt löst eller ej.
 	 */
-
 	public boolean solver() {
 
-		return solver(0, 0);
+		boolean checker = true;
 
-		// // Nästlad loop för att gå igenom hela matrisen
-		// for (int i = 0; i < 10; i++) {
-		// for (int j = 0; j < 9; i++) {
-		// if (i == 9) {
-		// return true;
-		// } else if (matris[i][j] == 0) { // OBS!! Vet ej om det skall
-		// // vara == 0 eller == null
-		// // Metod för att hitta värde att sätta in, tryPut
-		// tryRules(i, j);
-		//
-		// } else if (matris[i][j] > 0 && matris[i][j] < 10) {
-		// // Metod för att kolla så att allt är okej, annars returna
-		// // false och gå tillbaka
-		// } else {
-		// return false; // Något kul exception :)
-		// }
-		// }
-		// }
+		for (int row = 0; row < 9; row++) {
+			for (int col = 0; col < 9; col++) {
+				if (matris[row][col] > 0) {
+					if (!tryRules(row, col, matris[row][col])) {
+						checker = false;
+					}
+				}
+			}
+		}
 
+		if (checker) {
+			return solver(0, 0);
+		} else {
+			return false;
+		}
 	}
 
 	private boolean solver(int posX, int posY) {
-		//printmatrix
+		// printmatrix
 		if (posY > 8) {
 			return true;
 		} else if (posX == 9) {
@@ -71,14 +67,12 @@ public class SudokuSolver {
 					return false;
 				} else if (tryRules(posX, posY, i)) {
 					put(posX, posY, i);
-					System.out.print(matris[posX][posY]);
-					if (solver(posX + 1, posY)){
+					if (solver(posX + 1, posY)) {
 						return true;
 					}
 				}
 			}
 		} else {
-			System.out.print(matris[posX][posY]);
 			return solver(posX + 1, posY);
 		}
 		return false; // tillfällig return statement
@@ -98,7 +92,7 @@ public class SudokuSolver {
 		for (int i = 0; i < 9; i++) {
 			if (matris[posX][i] == nbr || matris[i][posY] == nbr || group(posX, posY, nbr)) {
 				return false;
-			} 
+			}
 		}
 		return true;
 	}
@@ -118,6 +112,14 @@ public class SudokuSolver {
 		matris[posX][posY] = nbr;
 	}
 
+	/**
+	 * Tar bort värdet (sätter värde 0) på en specifik plats
+	 * 
+	 * @param posX
+	 *            , plats i x-led
+	 * @param posY
+	 *            , plats i y-led
+	 */
 	public void remove(int posX, int posY) {
 		matris[posX][posY] = 0;
 	}

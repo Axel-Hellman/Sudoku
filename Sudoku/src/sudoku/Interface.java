@@ -33,10 +33,6 @@ public class Interface extends Application {
 		tilepane.setHgap(3);
 		tilepane.setVgap(3);
 		tilepane.setAlignment(Pos.CENTER);
-//		tilepane.setMaxWidth(300);
-//		tilepane.setMinWidth(300);
-//		tilepane.setMaxHeight(300);
-//		tilepane.setMinHeight(300);
 
 		// sätter färgen på textrut-grupperna
 		for (int posX = 0; posX < 9; posX++) {
@@ -60,7 +56,6 @@ public class Interface extends Application {
 		Button solveButton = new Button("Solve");
 		Button clearButton = new Button("Clear");
 
-//		topBox.setPrefSize(500, 500);
 		topBox.setStyle("-fx-background-color: #0D0D0D;");
 		root.setTop(topBox);
 		topBox.getChildren().addAll(tilepane);
@@ -90,7 +85,6 @@ public class Interface extends Application {
 			}
 
 			if (game.solver()) {
-
 				for (int row = 0; row < 9; row++) {
 					for (int col = 0; col < 9; col++) {
 						OneLetterTextField tf = fields[row][col];
