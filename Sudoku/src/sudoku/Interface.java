@@ -40,7 +40,7 @@ public class Interface extends Application {
 				OneLetterTextField tf = new OneLetterTextField();
 				int bigBoxNum = posX / 3 + posY / 3;
 				if ((bigBoxNum % 2) == 0) {
-					tf.setStyle("-fx-background-color: lightsalmon;");
+					tf.setStyle("-fx-background-color: lightGreen;");
 				}
 				fields[posX][posY] = tf;
 				tf.setPrefColumnCount(1);
