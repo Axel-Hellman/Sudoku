@@ -67,6 +67,7 @@ public class Interface extends Application {
 
 		Alert errorWindow = new Alert(AlertType.ERROR);
 		errorWindow.setTitle("FELMEDDELANDE");
+		errorWindow.setHeaderText(null);
 		errorWindow.setContentText("FEL: Ingen lösning tillgänglig");
 
 		// Handlingen vid tryck av solveButton

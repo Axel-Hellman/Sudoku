@@ -22,7 +22,7 @@ public class SudokuTester {
 
 	@Test
 	public void testEmptyBoard() {
-		assertTrue("Sucessfully solved", game.solver());
+		assertTrue("Successfully solved", game.solver());
 	}
 	
 	@Test
@@ -61,14 +61,15 @@ public class SudokuTester {
 		
 		game.put(6, 8, 4);
 		
-		assertTrue("Sucessfully solved", game.solver());
+		assertTrue("Successfully solved", game.solver());
 	}
 	
 	@Test
 	public void testBoardFail() {
 		game.put(0, 0, 1);
 		game.put(1, 0, 1);
-		assertFalse("unSucessfully solved", game.solver());
+		game.put(2, 2, 1);
+		assertFalse("Unsuccessfully solved", game.solver());
 		
 	}
 

@@ -9,12 +9,6 @@ package sudoku;
  * @since 2018-02-20
  */
 public class SudokuSolver {
-
-	public static void main(String[] args) {
-		SudokuSolver tester = new SudokuSolver();
-		tester.solver();
-	}
-
 	public int[][] matris;
 
 	/**
@@ -54,7 +48,6 @@ public class SudokuSolver {
 	}
 
 	private boolean solver(int posX, int posY) {
-		// printmatrix
 		if (posY > 8) {
 			return true;
 		} else if (posX == 9) {
@@ -75,7 +68,7 @@ public class SudokuSolver {
 		} else {
 			return solver(posX + 1, posY);
 		}
-		return false; // tillfällig return statement
+		return false; 
 	}
 
 	/**
@@ -90,7 +83,13 @@ public class SudokuSolver {
 	 */
 	public boolean tryRules(int posX, int posY, int nbr) {
 		for (int i = 0; i < 9; i++) {
-			if (matris[posX][i] == nbr || matris[i][posY] == nbr || group(posX, posY, nbr)) {
+			if (matris[posX][i] == nbr && i != posY) {
+				return false;
+			}
+			else if(matris[i][posY] == nbr && i != posX){
+				return false;
+			}
+			else if (group(posX, posY, nbr)) {
 				return false;
 			}
 		}
@@ -154,7 +153,7 @@ public class SudokuSolver {
 		int newPosY = (posY / 3) * 3;
 		for (int i = newPosX; i < newPosX + 3; i++) {
 			for (int j = newPosY; j < newPosY + 3; j++) {
-				if (matris[i][j] == a) {
+				if (matris[i][j] == a && j != posY && i != posX) {
 					return true;
 				}
 			}
